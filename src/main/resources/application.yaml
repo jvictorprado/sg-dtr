@@ -1,0 +1,59 @@
+spring:
+  profiles:
+    active: ${currentEnv:dev}
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  security:
+    oauth2:
+      resourceserver:
+        client: ${keycloakResource:login-app}
+        jwt:
+          issuer-uri: ${keycloakUrl:https://login}
+
+server:
+  port: 8080
+  max-http-request-header-size: 65536
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+app:
+  hours-offset: ${HOURS_OFFSET:0}
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    org:
+      hibernate:
+        SQL: ${LOGGING_LEVEL_ORG_HIBERNATE_SQL:INFO}
+        type: ${LOGGING_LEVEL_ORG_HIBERNATE_TYPE:INFO}
+      springframework:
+        security: DEBUG
+    feign: DEBUG
+
+## FEIGN CLIENTS
+jira:
+<<<<<<< HEAD
+  api:
+    url: ${JIRA_DOMAIN_URL:https://victorprado.atlassian.net}
+  auth:
+    username: vpss@ecomp.poli.br
+    api-token: ATATT3xFfGF09B1mG6dfc9B3KBNM1GElU9wlQzmQHTQ86Homma6mayCnMbml9BOrk5fda_NU1HocRZODCgWrrighdhd2PyO1I3f2EKPrJG6UGfezpKIDDNk57v8H2e-ZLVcMfVgKzl5fxS-X8rwjC3_3dipB32mES7Lwmj87cLU2HECIfxlq_60=01AC8091
+=======
+  url: ${JIRA_URL:http://localhost:8082}
+  name: accounts
+>>>>>>> main
+
+
+## FEIGN AUTH
+keycloak:
+  auth-server-url: https://login
+  realm: realm
+  client-id: login-app
+  username: ${KEYCLOAK_USERNAME:}
+  password: ${KEYCLOAK_PASSWORD:}

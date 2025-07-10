@@ -1,0 +1,45 @@
+image: gitlab/dind
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - docker-build
+
+build-jar:
+  image: eclipse-temurin:21
+  stage: build
+  script:
+    - chmod -R 777 .
+    - ./gradlew clean build -x test --no-daemon --stacktrace
+  artifacts:
+    paths:
+      - build/libs/sgdtr-backend.jar
+
+test-app:
+  image: eclipse-temurin:21
+  stage: test
+  script:
+    - chmod +x gradlew
+    - ./gradlew test
+  artifacts:
+    name: "test"
+    paths:
+      - src/test/kotlin/br/upe/poli/sgdtr/*.kt
+    when: always
+  dependencies:
+    - build-jar
+
+docker-build:
+  image: docker:latest
+  stage: docker-build
+  script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - docker build -t sgdtr-backend-image .
+    - docker tag sgdtr-backend-image jvictorprado/sgdtr-backend-image:$CI_COMMIT_SHORT_SHA
+    - docker push jvictorprado/sgdtr-backend-image:$CI_COMMIT_SHORT_SHA
+  dependencies:
+    - build-jar

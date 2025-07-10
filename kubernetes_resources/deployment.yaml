@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sgdtr-backend-deployment
+spec:
+  replicas: 4  # Número de pods
+  selector:
+    matchLabels:
+      app: sgdtr-backend
+  template:
+    metadata:
+      labels:
+        app: sgdtr-backend
+    spec:
+      containers:
+      - name: sgdtr-backend
+        image: jvictorprado/sgdtr-backend-image:39cbb843
+        ports:
+        - containerPort: 8080
+

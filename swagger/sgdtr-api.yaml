@@ -1,0 +1,1447 @@
+openapi: 3.0.3
+info:
+  title: SG-DTR - OpenAPI 3.1
+  contact:
+    email: contato@poli.br
+  version: 0.15.0
+
+servers:
+  - url: https://app.cert.poli.com.br
+    description: Ambiente de Certificação
+  - url: https://app.poli.com.br
+    description: Ambiente de Produção
+
+tags:
+  - name: DTR
+    description: APIs para criação, consulta, listagem e exclusão de Projetos.
+
+paths:
+  /v1/project:
+    get:
+      tags:
+        - DTR
+      summary: List Projects
+      description: List Projects
+      operationId: getProjectsPage
+      parameters:
+        - name: page
+          in: query
+          description: Número da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: Tamanho da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: name
+          in: query
+          description: Project name
+          required: false
+          schema:
+            type: string
+        - name: admin
+          in: query
+          description: Admin
+          required: false
+          schema:
+            type: string
+            default: "id"
+        - name: client
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectPage"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /v1/project/{projectId}:
+    get:
+      tags:
+        - DTR
+      summary: Detail Project
+      description: Detail Project
+      operationId: detailProject
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: Project Id
+          schema:
+            type: number
+        - name: page
+          in: query
+          description: Número da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: Tamanho da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: name
+          in: query
+          description: Project name
+          required: false
+          schema:
+            type: string
+        - name: admin
+          in: query
+          description: Admin
+          required: false
+          schema:
+            type: string
+            default: "id"
+        - name: client
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectPage"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /v1/project/create:
+    post:
+      tags:
+        - DTR
+      summary: Create new Project
+      description: Create new Project
+      operationId: createProject
+      requestBody:
+        description: Create new Project
+        required: true
+        content:
+          application/json:
+            schema:
+<<<<<<< HEAD
+              $ref: '#/components/schemas/CreateProjectRequest'
+=======
+              type: object
+              properties:
+                project_url:
+                  type: string
+
+>>>>>>> main
+      responses:
+        '201':
+          description: Criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /v1/project/import:
+    post:
+      tags:
+        - DTR
+      summary: Import new Project
+      description: Import new Project
+      operationId: importProject
+      requestBody:
+        description: Create new Project
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportProjectRequest'
+      responses:
+        '201':
+          description: Criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDetailDTO'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /v1/project/{projectId}/artifact:
+    get:
+      tags:
+        - DTR
+      summary: List Artifacts
+      description: List Artifacts
+      operationId: listArtifacts
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: Project Id
+          schema:
+            type: number
+        - name: type
+          in: query
+          description: Artifact Type
+          required: false
+          schema:
+            type: string
+        - name: admin
+          in: query
+          description: Admin
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArtifactPage"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+    post:
+      tags:
+        - DTR
+      summary: Create new Artifact
+      description: Create new Artifact
+      operationId: createArtifact
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: Project Id
+          schema:
+            type: number
+      requestBody:
+        description: Create new Artifact
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateArtifactRequest'
+      responses:
+        '201':
+          description: Criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactDTO'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+
+  /v1/project/{projectId}/artifact/{artifactId}:
+    get:
+      tags:
+        - DTR
+      summary: Detail Artifact
+      description: Detail Artifact
+      operationId: detailArtifact
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: Project Id
+          schema:
+            type: number
+        - name: artifactId
+          in: path
+          required: true
+          description: Artifact Id
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArtifactDetailDTO"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /v1/project/{projectId}/artifact/{artifactId}/issue:
+    post:
+      tags:
+        - DTR
+      summary: Create new Issue
+      description: Create new Issue
+      operationId: createIssue
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: Project Id
+          schema:
+            type: number
+        - name: artifactId
+          in: path
+          required: true
+          description: Artifact Id
+          schema:
+            type: number
+      requestBody:
+        description: Create new Issue
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueDTO'
+      responses:
+        '201':
+          description: Criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDTO'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      tags:
+        - DTR
+      summary: List Issues
+      description: List List Issues
+      operationId: listIssues
+      parameters:
+        - name: projectId
+          in: path
+          description: Project Id
+          required: true
+          schema:
+            type: number
+        - name: artifactId
+          in: path
+          description: Artifact Id
+          required: true
+          schema:
+            type: number
+        - name: page
+          in: query
+          description: Número da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: Tamanho da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: id
+          in: query
+          description: Issue ID
+          required: false
+          schema:
+            type: string
+        - name: admin
+          in: query
+          description: Admin
+          required: false
+          schema:
+            type: string
+        - name: issueType
+          in: query
+          description: Issue Type
+          required: false
+          schema:
+            $ref: '#/components/schemas/IssueType'
+        - name: idtr
+          in: query
+          description: Is IDTR
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuePage'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /v1/project/{projectId}/artifact/{artifactId}/issue/{issueId}:
+    put:
+      tags:
+        - DTR
+      summary: Update Issue
+      description: Update Issue
+      operationId: updateIssue
+      parameters:
+        - name: projectId
+          in: path
+          description: Project Id
+          required: true
+          schema:
+            type: number
+        - name: artifactId
+          in: path
+          description: Artifact Id
+          required: true
+          schema:
+            type: number
+        - name: issueId
+          in: path
+          description: Issue Id
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Update Issue
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Issue"
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      tags:
+        - DTR
+      summary: Detail Issue
+      description: Detail Issue
+      operationId: detailIssue
+      parameters:
+        - name: projectId
+          in: path
+          description: Project Id
+          required: true
+          schema:
+            type: number
+        - name: artifactId
+          in: path
+          description: Artifact Id
+          required: true
+          schema:
+            type: number
+        - name: issueId
+          in: path
+          description: Issue Id
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueDTO'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /v1/dtr:
+    post:
+      tags:
+        - DTR
+      summary: Submit DTR Proposal
+      description: Submit DTR Proposal
+      operationId: submitDTRProposal
+      requestBody:
+        description: Submit DTR Proposal
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/SubmitDTRProposal"
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IDTRDTO"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+    get:
+      tags:
+        - DTR
+      summary:  List DTR
+      description: List DTR Proposals
+      operationId: listDTRProposals
+      parameters:
+        - name: page
+          in: query
+          description: Número da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: Tamanho da página para exportação (opcional)
+          required: false
+          schema:
+            type: integer
+            default: 10
+        - name: projectKey
+          in: query
+          description: Project Key
+          required: false
+          schema:
+            type: number
+        - name: artifactKey
+          in: query
+          description: Artifact Key
+          required: false
+          schema:
+            type: number
+        - name: issueKey
+          in: query
+          description: Issue Key
+          required: false
+          schema:
+            type: number
+        - name: status
+          in: query
+          description: IDTR Status
+          required: false
+          schema:
+            $ref: '#/components/schemas/IDTRStatus'
+        - name: cause
+          in: query
+          description: IDTR Cause
+          required: false
+          schema:
+            $ref: '#/components/schemas/IDTRCause'
+        - name: cost
+          in: query
+          description: IDTR Cost
+          required: false
+          schema:
+            $ref: '#/components/schemas/IDTRCost'
+        - name: impact
+          in: query
+          description: IDTR Impact
+          required: false
+          schema:
+            $ref: '#/components/schemas/IDTRImpact'
+        - name: priority
+          in: query
+          description: IDTR Impact
+          required: false
+          schema:
+            $ref: '#/components/schemas/IDTRPriority'
+        - name: intentional
+          in: query
+          description: Is Intentional
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IDTRDTO'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /v1/dtr/{dtrId}:
+    put:
+      tags:
+        - DTR
+      summary: Update IDTR
+      description: Update IDTR
+      operationId: updateDTR
+      parameters:
+        - name: dtrId
+          in: path
+          description: DTR Id
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Update IDTR
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/UpdateIDTRDTO"
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IDTRDTO"
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '403':
+          description: Proibido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '424':
+          description: Falha de Dependência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Erro Interno do Servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+components:
+  schemas:
+    MetadataDTO:
+      required:
+        - page
+        - pageSize
+        - totalItems
+        - totalPages
+      type: object
+      properties:
+        page:
+          type: integer
+          description: Current Page
+          format: int32
+        pageSize:
+          type: integer
+          description: Number of elements in each page
+          format: int32
+        totalItems:
+          type: integer
+          description: Total number of items
+          format: int64
+          example: 1000
+        totalPages:
+          type: integer
+          description: Total number of pages
+          format: int64
+          example: 100
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: number
+        key:
+          type: string
+        title:
+          type: string
+        admin:
+          type: string
+<<<<<<< HEAD
+      required:
+        - id
+        - key
+
+    ProjectDetailDTO:
+      type: object
+      properties:
+        project:
+          type: object
+          $ref: "#/components/schemas/ProjectDTO"
+        artifacts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ArtifactDTO"
+      required:
+        - project
+
+    ImportProjectRequest:
+      type: object
+      properties:
+        projectKey:
+          type: string
+      required:
+        - projectKey
+=======
+        n_idtr:
+          type: number
+        goals:
+          type: string
+        artifacts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Artifact"
+        #users:
+      required:
+        - name
+        - key
+        - admin
+        - n_idtr
+>>>>>>> main
+
+    CreateProjectRequest:
+      type: object
+      properties:
+        key:
+          type: string
+      required:
+        - name
+
+
+    ProjectPage:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/MetadataDTO'
+        data:
+          type: array
+          description: Lista de projectos retornados na página atual
+          items:
+            $ref: '#/components/schemas/Project'
+
+    IssueType:
+      type: string
+      enum:
+        - STORY
+        - TASK
+        - BUG
+
+<<<<<<< HEAD
+    CreateArtifactRequest:
+      type: object
+      required:
+        - name
+        - key
+        - title
+        - admin
+=======
+    Artifact:
+      type: object
+>>>>>>> main
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+<<<<<<< HEAD
+=======
+        id:
+          type: string
+        issues:
+          type: array
+          items:
+            $ref: "#/components/schemas/Issue"
+>>>>>>> main
+        admin:
+          type: string
+        description:
+          type: string
+
+    ArtifactDTO:
+      type: object
+      required:
+        - key
+      properties:
+        id:
+          type: number
+        key:
+          type: string
+        title:
+          type: string
+        admin:
+          type: string
+        description:
+          type: string
+
+<<<<<<< HEAD
+    ArtifactDetailDTO:
+      type: object
+      required:
+        - artifact
+        - issues
+      properties:
+        artifact:
+          type: object
+          $ref: "#/components/schemas/ArtifactDTO"
+        issues:
+          type: array
+          items:
+            type: object
+            $ref: "#/components/schemas/IssueDTO"
+
+=======
+>>>>>>> main
+    ArtifactPage:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/MetadataDTO'
+        data:
+          type: array
+          description: Lista de projectos retornados na página atual
+          items:
+            $ref: '#/components/schemas/Artifact'
+
+    IDTRStatus:
+      type: string
+      enum:
+        - ABERTO
+        - PAGO
+        - INDICADA
+        - APROVADA
+        - REJEITADA
+    IDTRCost:
+      type: string
+      enum:
+        - ALTO
+        - MEDIO
+        - BAIXO
+
+<<<<<<< HEAD
+    IDTRPriority:
+      type: string
+      enum:
+        - ALTA
+        - MEDIA
+        - BAIXA
+
+    IDTRCause:
+      type: string
+      enum:
+        - C1
+        - C1.1
+        - C1.2
+        - C2
+        - C2.1
+        - C2.2
+        - C3
+        - C3.1
+        - C3.2
+        - C3.3
+        - C4
+        - C4.1
+        - C4.2
+        - C5
+        - C5.1
+        - C5.2
+        - C5.3
+        - C5.4
+        - C6
+        - C6.1
+        - C6.2
+
+    IDTRImpact:
+      type: string
+      enum:
+        - I1
+        - I1.1
+        - I1.2
+        - I1.3
+        - I2
+        - I2.1
+        - I2.2
+        - I2.3
+        - I3
+        - I3.1
+        - I3.2
+        - I4
+        - I4.1
+        - I4.2
+        - I5
+        - I5.1
+        - I5.2
+        - I5.3
+        - I6
+        - I6.1
+        - I6.2
+        - I6.3
+
+    SubmitDTRProposal:
+      type: object
+      required:
+        - description
+        - cost
+        - cause
+        - impact
+        - priority
+        - intentional
+      properties:
+        description:
+          type: string
+        cost:
+          $ref: '#/components/schemas/IDTRCost'
+        cause:
+          $ref: '#/components/schemas/IDTRCause'
+        impact:
+          $ref: '#/components/schemas/IDTRImpact'
+        priority:
+          $ref: '#/components/schemas/IDTRImpact'
+        intentional:
+          type: boolean
+        issueId:
+          type: number
+        idtrCorrelation:
+          type: array
+          items:
+            properties:
+              idtrs:
+                type: string
+                description: IDTR Key
+
+    IDTRDTO:
+      type: object
+      required:
+        - id
+        - key
+        - description
+        - cost
+        - cause
+        - impact
+        - priority
+        - intentional
+      properties:
+        id:
+          type: number
+        key:
+          type: string
+        description:
+          type: string
+        cost:
+          $ref: '#/components/schemas/IDTRCost'
+        cause:
+          $ref: '#/components/schemas/IDTRCause'
+        impact:
+          $ref: '#/components/schemas/IDTRImpact'
+        priority:
+          $ref: '#/components/schemas/IDTRPriority'
+        intentional:
+          type: boolean
+        idtrCorrelation:
+          type: array
+          items:
+            properties:
+              idtrs:
+                type: string
+                description: IDTR Key
+
+    UpdateIDTRDTO:
+      type: object
+      required:
+        - description
+        - cost
+        - cause
+        - impact
+        - priority
+        - intentional
+      properties:
+        description:
+          type: string
+        cost:
+          $ref: '#/components/schemas/IDTRCost'
+        cause:
+          $ref: '#/components/schemas/IDTRCause'
+        impact:
+          $ref: '#/components/schemas/IDTRImpact'
+        priority:
+          $ref: '#/components/schemas/IDTRPriority'
+        intentional:
+          type: boolean
+        idtrCorrelation:
+          type: array
+          items:
+            properties:
+              idtrs:
+                type: string
+                description: IDTR Key
+
+    IssueDTO:
+      type: object
+      required:
+        - key
+        - type
+        - created
+      properties:
+        id:
+          type: number
+        key:
+=======
+    Issue:
+      type: object
+      properties:
+        name:
+>>>>>>> main
+          type: string
+        id:
+          type: string
+        admin:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date
+        priority:
+          type: number
+        type:
+          $ref: '#/components/schemas/IssueType'
+<<<<<<< HEAD
+        created:
+          type: string
+          format: date
+        updated:
+          type: string
+          format: date
+        parentKey:
+          type: string
+=======
+        status:
+          $ref: '#/components/schemas/IDTRStatus'
+        cost:
+          $ref: '#/components/schemas/IDTRCost'
+        intentional:
+          type: boolean
+>>>>>>> main
+        idtr:
+          type: boolean
+
+    IssuePage:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/MetadataDTO'
+        data:
+          type: array
+          description: Lista de Issues retornados na página atual
+          items:
+            $ref: '#/components/schemas/IssueDTO'
+
+    CreateIssueRequest:
+      type: object
+      required:
+        - key
+        - self
+        - summary
+        - description
+        - type
+        - created
+        - updated
+      properties:
+        title:
+          type: string
+        summary:
+          type: string
+        description:
+          type: string
+        type:
+          $ref: '#/components/schemas/IssueType'
+
+    ApiError:
+      description: Exceção de erro
+      type: object
+      properties:
+        errors:
+          description: Lista de erros
+          type: array
+          items:
+            description: Item de erro
+            type: object
+            properties:
+              code:
+                description: Código do erro
+                type: string
+                maxLength: 128
+              title:
+                description: Título do erro
+                type: string
+                maxLength: 128
+              detail:
+                description: Detalhe do erro
+                type: string
+                maxLength: 5000

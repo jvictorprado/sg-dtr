@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    hikari:
+      poolName: sgdtrPool
+      connectionTimeout: ${DATABASE_CONNECTION_TIMEOUT:300000}
+      maximumPoolSize: 100
+      minimumIdle: 2
+      idleTimeout: 400000
+      maxLifetime: ${DATABASE_MAX_LIFETIME:1800000}
+      connectionTestQuery: SELECT 1
+
+  jpa:
+    generate-ddl: ${DATABASE_GENERATE_DDL:false}
+    show-sql: ${DATABASE_SHOW_JPA_SQL:false}
+    hibernate:
+      ddl-auto: update
+      format_sql: ${DATABASE_FORMAT_SQL:false}
+    properties:
+      hibernate:
+        dialect: ${DATABASE_PLATFORM:org.hibernate.dialect.PostgreSQLDialect}
+        show_sql: ${DATABASE_SHOW_SQL:false}
